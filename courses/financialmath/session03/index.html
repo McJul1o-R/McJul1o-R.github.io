@@ -1,1 +1,1184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sesión 03: Progresiones Geométricas y Crecimiento Exponencial | Matemáticas Financieras</title>
+  
+  <!-- Tipografías modernas y académicas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- MathJax 3 para renderizado matemático profesional -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
+  <style>
+    :root {
+      /* Paleta Azul Eléctrico Personalizada */
+      --primary: #0066FF;        /* Azul eléctrico vibrante */
+      --primary-dark: #004EC4;   /* Azul eléctrico profundo */
+      --primary-light: #EBF3FF;  /* Azul hielo muy suave para fondos */
+      --secondary: #0F172A;      /* Azul marino muy oscuro para contraste y lectura */
+      --accent: #0284C7;         /* Azul cian intenso para conexiones financieras */
+      --accent-light: #F0F9FF;
+      --bg-body: #F4F7FB;
+      --bg-card: #FFFFFF;
+      --text-main: #334155;
+      --text-muted: #64748B;
+      --border-color: #DBEAFE;
+      --shadow-sm: 0 1px 3px rgba(0, 102, 255, 0.06);
+      --shadow-md: 0 4px 12px rgba(0, 102, 255, 0.1);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* Control de visibilidad por idioma */
+    html[lang="es"] [data-lang="en"] {
+      display: none !important;
+    }
+    html[lang="en"] [data-lang="es"] {
+      display: none !important;
+    }
+
+    /* Barra superior del curso */
+    .course-topbar {
+      background-color: var(--secondary);
+      color: #FFFFFF;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .course-topbar .course-title-bar {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #E2E8F0;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .course-topbar .course-badge {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      padding: 0.25rem 0.85rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      box-shadow: 0 0 12px rgba(0, 102, 255, 0.45);
+    }
+
+    /* Selector de idioma ES / EN */
+    .lang-switcher {
+      display: inline-flex;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #CBD5E1;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      color: #FFFFFF;
+    }
+
+    .lang-btn.active {
+      background-color: #FFFFFF;
+      color: var(--secondary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Encabezado Hero de la Sesión */
+    .session-header {
+      background: linear-gradient(135deg, #FFFFFF 0%, #EBF3FF 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .session-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .session-header h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.15rem;
+      color: var(--secondary);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .session-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 760px;
+    }
+
+    /* Índice rápido de contenidos */
+    .toc-nav {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: -1.5rem auto 2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toc-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .toc-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      list-style: none;
+    }
+
+    .toc-links a {
+      text-decoration: none;
+      color: var(--secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .toc-links a:hover {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    /* Tarjetas de Sección */
+    .section-card {
+      background-color: var(--bg-card);
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-card h2 {
+      font-size: 1.45rem;
+      color: var(--secondary);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .section-number {
+      background-color: var(--primary);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-card h3 {
+      font-size: 1.15rem;
+      color: var(--secondary);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Caja de Objetivos y Temas */
+    .objectives-box {
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .objectives-box h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .objectives-box ul {
+      margin-left: 1.25rem;
+      color: var(--text-main);
+    }
+
+    /* Cajas de Definición y Fórmulas */
+    .formula-box {
+      background-color: var(--primary-light);
+      border: 1px solid #BFDBFE;
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .formula-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    /* Tabla de Propiedades */
+    .notation-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      font-size: 0.95rem;
+    }
+
+    .notation-table th,
+    .notation-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .notation-table th {
+      background-color: var(--primary-light);
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .notation-table tr:nth-child(even) td {
+      background-color: #F8FAFC;
+    }
+
+    /* Cajas de Alerta / Nota Pedagógica */
+    .callout-note {
+      background-color: #FEFCE8;
+      border: 1px solid #FEF08A;
+      border-left: 4px solid #EAB308;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout-note strong.callout-title {
+      display: block;
+      color: #854D0E;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .callout-note ul {
+      margin-left: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Puente Financiero / Aplicaciones Exponenciales */
+    .finance-bridge {
+      background: linear-gradient(135deg, var(--accent-light) 0%, #FFFFFF 100%);
+      border: 1px solid #BAE6FD;
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .finance-bridge h3 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    /* Ejemplos desplegables interactivos */
+    details.example-accordion {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      margin: 1rem 0;
+      background-color: #FFFFFF;
+      overflow: hidden;
+    }
+
+    details.example-accordion summary {
+      padding: 0.9rem 1.25rem;
+      font-weight: 600;
+      color: var(--secondary);
+      cursor: pointer;
+      background-color: #F8FAFC;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s;
+    }
+
+    details.example-accordion summary:hover {
+      background-color: var(--primary-light);
+    }
+
+    html[lang="es"] details.example-accordion summary::after {
+      content: "Ver desarrollo ▾";
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    html[lang="es"] details.example-accordion[open] summary::after {
+      content: "Ocultar desarrollo ▴";
+    }
+
+    html[lang="en"] details.example-accordion summary::after {
+      content: "Show solution ▾";
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    html[lang="en"] details.example-accordion[open] summary::after {
+      content: "Hide solution ▴";
+    }
+
+    .accordion-content {
+      padding: 1.25rem;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .accordion-content ol {
+      margin-left: 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Simulador Interactivo de Progresión Geométrica */
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 0.35rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background-color: #FFFFFF;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.18);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      padding: 0.65rem 1.35rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0, 102, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .sim-results {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background-color: #F8FAFC;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      background: white;
+      padding: 0.85rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .metric-card span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .metric-card strong {
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+    }
+
+    /* Lista de Actividad / Práctica */
+    .problem-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      background-color: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+
+    .problem-card:hover {
+      border-color: #93C5FD;
+    }
+
+    .problem-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .problem-tag {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid #BFDBFE;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+    }
+
+    .problem-card ol {
+      margin-left: 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Pie de página personal del curso */
+    .course-footer {
+      background-color: var(--secondary);
+      color: #94A3B8;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.875rem;
+      border-top: 3px solid var(--primary);
+    }
+
+    .course-footer strong {
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 640px) {
+      .section-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .session-header h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior del curso -->
+  <header class="course-topbar">
+    <span class="course-title-bar">
+      <span data-lang="es">Curso de Matemáticas Financieras</span>
+      <span data-lang="en">Financial Mathematics Course</span>
+    </span>
+    <div class="topbar-right">
+      <span class="course-badge">
+        <span data-lang="es">Módulo 2 &bull; Sesión 03</span>
+        <span data-lang="en">Module 2 &bull; Session 03</span>
+      </span>
+      <div class="lang-switcher" role="group" aria-label="Selector de idioma / Language switcher">
+        <button type="button" class="lang-btn active" id="btn-es" onclick="setLanguage('es')">ES</button>
+        <button type="button" class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Encabezado de la Sesión -->
+  <section class="session-header">
+    <div class="container">
+      <div class="session-meta">
+        <span data-lang="es">Modelado Exponencial y Capitalización</span>
+        <span data-lang="en">Exponential Modeling &amp; Compounding</span>
+        <span>&bull;</span>
+        <span>Prof. Julio César Magaña Cáceres</span>
+      </div>
+      <h1>
+        <span data-lang="es">Progresiones Geométricas y Crecimiento Exponencial</span>
+        <span data-lang="en">Geometric Progressions and Exponential Growth</span>
+      </h1>
+      <p class="session-subtitle">
+        <span data-lang="es">Definición, propiedades, término general y suma de series geométricas finitas como base matemática del interés compuesto y los modelos financieros multiplicativos.</span>
+        <span data-lang="en">Definition, properties, general term, and finite geometric series sums as the mathematical foundation for compound interest and multiplicative financial models.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenido Principal -->
+  <main class="container">
+
+    <!-- Navegación interna rápida -->
+    <nav class="toc-nav" aria-label="Índice de la sesión">
+      <span class="toc-title">
+        <span data-lang="es">Contenido:</span>
+        <span data-lang="en">Contents:</span>
+      </span>
+      <ul class="toc-links">
+        <li><a href="#definicion"><span data-lang="es">1. Definición y Propiedades</span><span data-lang="en">1. Definition &amp; Properties</span></a></li>
+        <li><a href="#formulas"><span data-lang="es">2. Término General y Serie</span><span data-lang="en">2. General Term &amp; Series</span></a></li>
+        <li><a href="#aplicaciones"><span data-lang="es">3. Modelos Financieros</span><span data-lang="en">3. Financial Models</span></a></li>
+        <li><a href="#ejemplos"><span data-lang="es">4. Ejemplos Resueltos</span><span data-lang="en">4. Worked Examples</span></a></li>
+        <li><a href="#simulador"><span data-lang="es">5. Simulador</span><span data-lang="en">5. Simulator</span></a></li>
+        <li><a href="#actividad"><span data-lang="es">6. Actividad 03</span><span data-lang="en">6. Activity 03</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Temas y Objetivos de la Sesión -->
+    <div class="objectives-box">
+      <h3>
+        <span data-lang="es">Temas y Objetivos de la Sesión</span>
+        <span data-lang="en">Session Topics &amp; Objectives</span>
+      </h3>
+      <ul>
+        <li>
+          <span data-lang="es"><strong>Definición y propiedades</strong> de las sucesiones geométricas frente al crecimiento aditivo.</span>
+          <span data-lang="en"><strong>Definition and properties</strong> of geometric sequences compared to additive growth.</span>
+        </li>
+        <li>
+          <span data-lang="es">Identificación del <strong>primer término ($a_0$)</strong> y la <strong>razón común ($r$)</strong> en problemas aplicados.</span>
+          <span data-lang="en">Identification of the <strong>first term ($a_0$)</strong> and the <strong>common ratio ($r$)</strong> in applied problems.</span>
+        </li>
+        <li>
+          <span data-lang="es">Construcción del <strong>término general ($a_n$)</strong> y la <strong>suma de una serie geométrica finita ($s_n$)</strong>.</span>
+          <span data-lang="en">Construction of the <strong>general term ($a_n$)</strong> and the <strong>sum of a finite geometric sequence ($s_n$)</strong>.</span>
+        </li>
+        <li>
+          <span data-lang="es"><strong>Aplicaciones al crecimiento exponencial y modelos financieros</strong> (interés compuesto, depreciación y flujos escalonados).</span>
+          <span data-lang="en"><strong>Applications to exponential growth and financial models</strong> (compound interest, depreciation, and scaled cash flows).</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SECCIÓN 1: Definición, Primer Término, Razón Común y Propiedades -->
+    <article id="definicion" class="section-card">
+      <h2>
+        <span class="section-number">1</span>
+        <span data-lang="es">Definición, Elementos y Propiedades de una Progresión Geométrica</span>
+        <span data-lang="en">Definition, Elements, and Properties of a Geometric Sequence</span>
+      </h2>
+      <p>
+        <span data-lang="es">Podemos definir una sucesión especificando un <strong>valor inicial $a_0$</strong> y una <strong>razón común $r$</strong> ($r \neq 0$) que multiplicamos en cada término siguiente. A diferencia de una progresión aritmética (donde sumamos una diferencia constante $d$), aquí el cambio es <strong>proporcional o multiplicativo</strong>.</span>
+        <span data-lang="en">We can define a sequence by specifying an <strong>initial value $a_0$</strong> and a <strong>common ratio $r$</strong> ($r \neq 0$) that we multiply to obtain each subsequent term. Unlike an arithmetic progression (where a constant difference $d$ is added), here the change is <strong>proportional or multiplicative</strong>.</span>
+      </p>
+
+      <div class="formula-box">
+        <div class="formula-title">
+          <span data-lang="es">Regla de Recurrencia y Razón Común</span>
+          <span data-lang="en">Recurrence Relation and Common Ratio</span>
+        </div>
+        <p style="margin-bottom: 0.4rem;">
+          <span data-lang="es">Cada término se obtiene multiplicando el inmediato anterior por la razón $r$:</span>
+          <span data-lang="en">Each term is obtained by multiplying the immediately preceding term by the common ratio $r$:</span>
+        </p>
+        $$a_n = a_{n-1} \cdot r \qquad \Longleftrightarrow \qquad r = \frac{a_n}{a_{n-1}}$$
+      </div>
+
+      <h3>
+        <span data-lang="es">Propiedades fundamentales según el valor de la razón ($r$)</span>
+        <span data-lang="en">Fundamental Properties According to the Common Ratio ($r$)</span>
+      </h3>
+      <p>
+        <span data-lang="es">Para un término inicial positivo ($a_0 > 0$), el comportamiento cualitativo de la sucesión depende directamente de la magnitud y signo de $r$:</span>
+        <span data-lang="en">For a positive initial term ($a_0 > 0$), the qualitative behavior of the sequence depends directly on the magnitude and sign of $r$:</span>
+      </p>
+
+      <table class="notation-table">
+        <thead>
+          <tr>
+            <th><span data-lang="es">Condición de $r$</span><span data-lang="en">Condition on $r$</span></th>
+            <th><span data-lang="es">Comportamiento de la Sucesión</span><span data-lang="en">Sequence Behavior</span></th>
+            <th><span data-lang="es">Interpretación Financiera / Física</span><span data-lang="en">Financial / Physical Interpretation</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>$r > 1$</strong></td>
+            <td><span data-lang="es"><strong>Crecimiento exponencial</strong> estrictamente creciente.</span><span data-lang="en">Strictly increasing <strong>exponential growth</strong>.</span></td>
+            <td><span data-lang="es">Capitalización compuesta ($r = 1 + i$), inflación o expansión viral de usuarios.</span><span data-lang="en">Compound interest ($r = 1 + i$), inflation, or viral user growth.</span></td>
+          </tr>
+          <tr>
+            <td><strong>$0 < r < 1$</strong></td>
+            <td><span data-lang="es"><strong>Decaimiento exponencial</strong> (tiende a $0$ sin alcanzarlo).</span><span data-lang="en"><strong>Exponential decay</strong> (approaches $0$ asymptotically).</span></td>
+            <td><span data-lang="es">Depreciación de activos por saldo decreciente o amortización proporcional.</span><span data-lang="en">Declining-balance asset depreciation or proportional debt reduction.</span></td>
+          </tr>
+          <tr>
+            <td><strong>$r = 1$</strong></td>
+            <td><span data-lang="es">Sucesión <strong>constante</strong> ($a_n = a_0$).</span><span data-lang="en"><strong>Constant</strong> sequence ($a_n = a_0$).</span></td>
+            <td><span data-lang="es">Tasa de crecimiento nula ($i = 0\%$).</span><span data-lang="en">Zero growth rate ($i = 0\%$).</span></td>
+          </tr>
+          <tr>
+            <td><strong>$r < 0$</strong></td>
+            <td><span data-lang="es">Sucesión <strong>alternante</strong> en signo.</span><span data-lang="en"><strong>Alternating</strong> sign sequence.</span></td>
+            <td><span data-lang="es">Oscilaciones entre flujos positivos y negativos.</span><span data-lang="en">Oscillations between positive and negative cash flows.</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-bottom: 0;">
+        <span data-lang="es"><strong>Propiedad de la media geométrica:</strong> En tres términos consecutivos $a_{n-1}, a_n, a_{n+1}$, el término central es la media geométrica de sus vecinos: $a_n^2 = a_{n-1} \cdot a_{n+1}$.</span>
+        <span data-lang="en"><strong>Geometric mean property:</strong> For any three consecutive terms $a_{n-1}, a_n, a_{n+1}$, the middle term is the geometric mean of its neighbors: $a_n^2 = a_{n-1} \cdot a_{n+1}$.</span>
+      </p>
+    </article>
+
+    <!-- SECCIÓN 2: Término General y Suma de una Serie Geométrica Finita -->
+    <article id="formulas" class="section-card">
+      <h2>
+        <span class="section-number">2</span>
+        <span data-lang="es">Término General y Suma de una Serie Geométrica Finita</span>
+        <span data-lang="en">General Term and Sum of a Finite Geometric Sequence</span>
+      </h2>
+      <p>
+        <span data-lang="es">Al aplicar repetidamente la multiplicación por $r$ a partir de $a_0$, obtenemos expresiones cerradas tanto para el término enésimo como para la suma acumulada $s_n = a_0 + a_1 + \cdots + a_n$:</span>
+        <span data-lang="en">By repeatedly multiplying by $r$ starting from $a_0$, we obtain closed-form expressions for both the $n$-th term and the cumulative sum $s_n = a_0 + a_1 + \cdots + a_n$:</span>
+      </p>
+
+      <div class="formula-box">
+        <div class="formula-title">
+          <span data-lang="es">Fórmulas Cerradas de la Progresión y Serie Geométrica</span>
+          <span data-lang="en">Closed-Form Formulas for Geometric Progression and Series</span>
+        </div>
+        <p style="margin-bottom: 0.4rem;">
+          <span data-lang="es"><strong>1. Término general (Valor en la posición $n$):</strong></span>
+          <span data-lang="en"><strong>1. General term (Value at position $n$):</strong></span>
+        </p>
+        $$a_n = a_0 \cdot r^n$$
+        <p style="margin-bottom: 0.4rem;">
+          <span data-lang="es"><strong>2. Serie geométrica finita (Suma acumulada desde $n = 0$ hasta $n$, para $r \neq 1$):</strong></span>
+          <span data-lang="en"><strong>2. Finite geometric series (Cumulative sum from $n = 0$ to $n$, for $r \neq 1$):</strong></span>
+        </p>
+        $$s_n = \frac{a_0 \cdot (r^{n+1} - 1)}{r - 1} = \frac{a_0 \cdot (1 - r^{n+1})}{1 - r}$$
+        <p style="margin-bottom: 0.4rem;">
+          <span data-lang="es"><strong>3. Despeje de la posición ($n$) mediante logaritmos:</strong></span>
+          <span data-lang="en"><strong>3. Solving for position ($n$) using logarithms:</strong></span>
+        </p>
+        $$n = \frac{\ln(a_n / a_0)}{\ln(r)}$$
+      </div>
+
+      <div class="callout-note">
+        <strong class="callout-title">
+          <span data-lang="es">&#9888; Nota Importante: Desfase en el índice del tiempo ($n$)</span>
+          <span data-lang="en">&#9888; Important Note: Time Index Offset ($n$)</span>
+        </strong>
+        <span data-lang="es">En los problemas aplicados, puede existir un desfase cuando el enunciado <strong>no proporciona un valor inicial ($a_0$)</strong>, sino que indica directamente el valor del <strong>primer ciclo</strong> (semana 1, mes 1, año 1):</span>
+        <span data-lang="en">In applied problems, an index offset occurs when the problem statement <strong>does not provide an initial value ($a_0$)</strong>, instead giving the value of the <strong>first cycle</strong> directly (week 1, month 1, year 1):</span>
+        <ul>
+          <li>
+            <span data-lang="es"><strong>Cuando calculas el valor de $n$:</strong> Para interpretar el periodo ordinal (semana, mes o año), <strong>suma $1$</strong> al resultado obtenido.</span>
+            <span data-lang="en"><strong>When solving for $n$:</strong> To interpret the ordinal period (week, month, or year), <strong>add $1$</strong> to the calculated value.</span>
+          </li>
+          <li>
+            <span data-lang="es"><strong>Cuando el problema te da el periodo $k$:</strong> Antes de sustituir $n$ en la fórmula basada en $a_0$, <strong>resta $1$</strong> ($n = k - 1$).</span>
+            <span data-lang="en"><strong>When the problem gives period $k$:</strong> Before substituting $n$ into the $a_0$-based formula, <strong>subtract $1$</strong> ($n = k - 1$).</span>
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- SECCIÓN 3: Aplicaciones al Crecimiento Exponencial y Modelos Financieros -->
+    <article id="aplicaciones" class="section-card">
+      <h2>
+        <span class="section-number">3</span>
+        <span data-lang="es">Aplicaciones al Crecimiento Exponencial y Modelos Financieros</span>
+        <span data-lang="en">Applications to Exponential Growth and Financial Models</span>
+      </h2>
+      <p>
+        <span data-lang="es">Las progresiones geométricas son el motor algebraico detrás de casi todas las finanzas modernas cuando existe <strong>reinversión</strong> o tasas de cambio porcentuales constantes:</span>
+        <span data-lang="en">Geometric progressions are the algebraic engine behind nearly all modern finance whenever <strong>reinvestment</strong> or constant percentage rates of change occur:</span>
+      </p>
+
+      <div class="finance-bridge">
+        <h3>
+          <span data-lang="es">Puente hacia el Interés Compuesto y Anualidades</span>
+          <span data-lang="en">Bridge to Compound Interest and Annuities</span>
+        </h3>
+        <ul style="margin-left: 1.25rem; margin-bottom: 0;">
+          <li>
+            <span data-lang="es"><strong>Interés Compuesto ($VF = VP(1 + i)^n$):</strong> Es una progresión geométrica donde $a_0 = VP$ y la razón común es el factor de capitalización $r = 1 + i$. A diferencia del interés simple (progresión aritmética), aquí los intereses generan nuevos intereses.</span>
+            <span data-lang="en"><strong>Compound Interest ($FV = PV(1 + i)^n$):</strong> A geometric progression where $a_0 = PV$ and the common ratio is the compounding factor $r = 1 + i$. Unlike simple interest (arithmetic progression), interest earns further interest.</span>
+          </li>
+          <li>
+            <span data-lang="es"><strong>Anualidades y Fondos de Ahorro ($s_n$):</strong> El valor futuro de una serie de depósitos periódicos iguales o crecientes se calcula directamente mediante la suma de una serie geométrica finita.</span>
+            <span data-lang="en"><strong>Annuities and Sinking Funds ($s_n$):</strong> The future value of a stream of equal or growing periodic deposits is derived directly from the sum of a finite geometric series.</span>
+          </li>
+          <li>
+            <span data-lang="es"><strong>Crecimiento de Ingresos y Usuarios:</strong> Si una empresa o plataforma crece a una tasa porcentual $g$ cada mes, sus ingresos siguen $I_n = I_0 (1 + g)^n$.</span>
+            <span data-lang="en"><strong>Revenue &amp; User Growth:</strong> If a business or platform grows at a percentage rate $g$ per month, its revenue follows $R_n = R_0 (1 + g)^n$.</span>
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- SECCIÓN 4: Ejemplos Resueltos -->
+    <article id="ejemplos" class="section-card">
+      <h2>
+        <span class="section-number">4</span>
+        <span data-lang="es">Ejemplos Resueltos Paso a Paso</span>
+        <span data-lang="en">Step-by-Step Worked Examples</span>
+      </h2>
+      <p>
+        <span data-lang="es">Revisa estos dos ejemplos clave: el primero trabaja con índices directos desde $a_0$ y el segundo ilustra un modelo de ahorro con crecimiento multiplicativo mensual.</span>
+        <span data-lang="en">Review these two key examples: the first works directly with $a_0$-based indices, and the second illustrates a savings model with monthly multiplicative growth.</span>
+      </p>
+
+      <!-- Ejemplo 1 -->
+      <details class="example-accordion">
+        <summary>
+          <span data-lang="es">Ejemplo 1: Sucesión geométrica base ($a_0 = 5$, razón $r = 2$)</span>
+          <span data-lang="en">Example 1: Base Geometric Sequence ($a_0 = 5$, common ratio $r = 2$)</span>
+        </summary>
+        <div class="accordion-content">
+          <p>
+            <span data-lang="es"><strong>Planteamiento:</strong> Considera el valor inicial $a_0 = 5$ y la razón $r = 2$.</span>
+            <span data-lang="en"><strong>Problem Statement:</strong> Consider the initial value $a_0 = 5$ and common ratio $r = 2$.</span>
+          </p>
+          <ol type="a">
+            <li>
+              <span data-lang="es"><strong>Fórmula cerrada de la progresión:</strong> $a_n = 5 \cdot 2^n$.</span>
+              <span data-lang="en"><strong>Closed-form progression formula:</strong> $a_n = 5 \cdot 2^n$.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Fórmula cerrada de la serie:</strong> $s_n = \frac{5(2^{n+1} - 1)}{2 - 1} = 5(2^{n+1} - 1)$.</span>
+              <span data-lang="en"><strong>Closed-form series formula:</strong> $s_n = \frac{5(2^{n+1} - 1)}{2 - 1} = 5(2^{n+1} - 1)$.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Valor en la posición $n = 15$:</strong> $a_{15} = 5 \cdot 2^{15} = 5(32,768) = 163,840$.</span>
+              <span data-lang="en"><strong>Value at position $n = 15$:</strong> $a_{15} = 5 \cdot 2^{15} = 5(32,768) = 163,840$.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Suma de los primeros 8 elementos ($n = 0$ hasta $n = 7$):</strong></span>
+              <span data-lang="en"><strong>Sum of the first 8 elements ($n = 0$ through $n = 7$):</strong></span>
+              $$s_7 = 5(2^{7+1} - 1) = 5(256 - 1) = 1,275$$
+            </li>
+            <li>
+              <span data-lang="es"><strong>Posición del valor $655,360$:</strong></span>
+              <span data-lang="en"><strong>Position of the value $655,360$:</strong></span>
+              $$655,360 = 5 \cdot 2^n \implies 2^n = 131,072 \implies n = \frac{\ln(131,072)}{\ln(2)} = 17$$
+            </li>
+            <li>
+              <span data-lang="es"><strong>Cantidad de elementos sumados si $s_n = 2,555$:</strong></span>
+              <span data-lang="en"><strong>Number of elements summed if $s_n = 2,555$:</strong></span>
+              $$2,555 = 5(2^{n+1} - 1) \implies 511 = 2^{n+1} - 1 \implies 2^{n+1} = 512 = 2^9 \implies 9\text{ elementos / elements } (n = 8).$$
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Ejemplo 2 -->
+      <details class="example-accordion">
+        <summary>
+          <span data-lang="es">Ejemplo 2: Ahorro inicial de $\$10$ que se triplica cada mes ($r = 3$)</span>
+          <span data-lang="en">Example 2: Initial Savings of $\$10$ Tripling Every Month ($r = 3$)</span>
+        </summary>
+        <div class="accordion-content">
+          <p>
+            <span data-lang="es"><strong>Planteamiento:</strong> Ahorramos $\$10$ inicialmente ($a_0 = 10$) y triplicamos el ahorro cada mes ($r = 3$): en el mes 1 se ahorran $\$30$ ($a_1$), en el mes 2 se ahorran $\$90$ ($a_2$), etc. <em>(Aquí existe valor inicial $a_0$, por lo que $n$ coincide directamente con el número de mes).</em></span>
+            <span data-lang="en"><strong>Problem Statement:</strong> We save $\$10$ initially ($a_0 = 10$) and triple the monthly savings each month ($r = 3$): in month 1 we save $\$30$ ($a_1$), in month 2 we save $\$90$ ($a_2$), etc. <em>(Since an initial value $a_0$ exists, $n$ matches the month number directly).</em></span>
+          </p>
+          <ol type="a">
+            <li>
+              <span data-lang="es"><strong>Ahorro en el mes 10 ($n = 10$):</strong> $a_{10} = 10 \cdot 3^{10} = 10(59,049) = \$590,490$.</span>
+              <span data-lang="en"><strong>Savings in month 10 ($n = 10$):</strong> $a_{10} = 10 \cdot 3^{10} = 10(59,049) = \$590,490$.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Mes en que se ahorran $\$65,610$:</strong></span>
+              <span data-lang="en"><strong>Month in which $\$65,610$ is saved:</strong></span>
+              $$65,610 = 10 \cdot 3^n \implies 3^n = 6,561 = 3^8 \implies n = 8\text{ (mes 8 / month 8).}$$
+            </li>
+            <li>
+              <span data-lang="es"><strong>Ahorro acumulado en el mes 5 ($s_5$):</strong></span>
+              <span data-lang="en"><strong>Cumulative savings at month 5 ($s_5$):</strong></span>
+              $$s_5 = \frac{10(3^{5+1} - 1)}{3 - 1} = 5(729 - 1) = \$3,640$$
+            </li>
+            <li>
+              <span data-lang="es"><strong>Meses ahorrados para acumular $\$2,657,200$:</strong></span>
+              <span data-lang="en"><strong>Months saved to accumulate $\$2,657,200$:</strong></span>
+              $$2,657,200 = 5(3^{n+1} - 1) \implies 531,440 = 3^{n+1} - 1 \implies 3^{n+1} = 531,441 = 3^{12} \implies n + 1 = 12 \implies n = 11\text{ meses / months.}$$
+            </li>
+          </ol>
+        </div>
+      </details>
+    </article>
+
+    <!-- SECCIÓN 5: Simulador Interactivo -->
+    <article id="simulador" class="section-card">
+      <h2>
+        <span class="section-number">5</span>
+        <span data-lang="es">Explorador Interactivo de Progresiones Geométricas</span>
+        <span data-lang="en">Interactive Geometric Progression Explorer</span>
+      </h2>
+      <p>
+        <span data-lang="es">Configura el término inicial ($a_0$), la razón común ($r$) y la posición ($n$) para observar la velocidad del crecimiento exponencial en el término enésimo y la serie acumulada.</span>
+        <span data-lang="en">Set the initial term ($a_0$), common ratio ($r$), and position ($n$) to observe the speed of exponential growth in both the $n$-th term and cumulative series.</span>
+      </p>
+
+      <div class="simulator-grid">
+        <div class="input-group">
+          <label for="input-a0">
+            <span data-lang="es">Término inicial ($a_0$)</span>
+            <span data-lang="en">Initial term ($a_0$)</span>
+          </label>
+          <input type="number" id="input-a0" value="1000" step="100">
+        </div>
+        <div class="input-group">
+          <label for="input-r">
+            <span data-lang="es">Razón común ($r$)</span>
+            <span data-lang="en">Common ratio ($r$)</span>
+          </label>
+          <input type="number" id="input-r" value="2" step="0.1">
+        </div>
+        <div class="input-group">
+          <label for="input-n">
+            <span data-lang="es">Posición / Periodo ($n$)</span>
+            <span data-lang="en">Position / Period ($n$)</span>
+          </label>
+          <input type="number" id="input-n" value="8" min="0" max="100" step="1">
+        </div>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="calcularGeometrica()">
+        <span data-lang="es">Calcular Progresión</span>
+        <span data-lang="en">Calculate Progression</span>
+      </button>
+
+      <div class="sim-results" id="sim-results">
+        <div class="metric-card">
+          <span>
+            <span data-lang="es">Fórmula General ($a_n$)</span>
+            <span data-lang="en">General Formula ($a_n$)</span>
+          </span>
+          <strong id="res-geom-formula">1,000 &middot; 2^n</strong>
+        </div>
+        <div class="metric-card">
+          <span>
+            <span data-lang="es">Término en posición $n$ ($a_n$)</span>
+            <span data-lang="en">Term at position $n$ ($a_n$)</span>
+          </span>
+          <strong id="res-geom-an">256,000</strong>
+        </div>
+        <div class="metric-card">
+          <span>
+            <span data-lang="es">Serie acumulada ($s_n$)</span>
+            <span data-lang="en">Cumulative series ($s_n$)</span>
+          </span>
+          <strong id="res-geom-sn">511,000</strong>
+        </div>
+      </div>
+    </article>
+
+    <!-- SECCIÓN 6: Actividad de Práctica -->
+    <article id="actividad" class="section-card">
+      <h2>
+        <span class="section-number">6</span>
+        <span data-lang="es">Actividad 03: Ejercicios de Progresiones Geométricas</span>
+        <span data-lang="en">Activity 03: Geometric Progression Practice Problems</span>
+      </h2>
+      <p>
+        <span data-lang="es">Resuelve los siguientes problemas aplicados utilizando las fórmulas cerradas de sucesión y serie geométrica. Verifica en cada caso si el enunciado parte de un valor inicial ($a_0$) o directamente del primer ciclo.</span>
+        <span data-lang="en">Solve the following applied problems using the closed-form formulas for geometric sequences and series. Check in each case whether the scenario starts from an initial value ($a_0$) or directly from the first cycle.</span>
+      </p>
+
+      <!-- Problema 1 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 1 &bull; Duplicación de Inversión Semanal</span>
+            <span data-lang="en">Problem 1 &bull; Weekly Investment Doubling</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Crecimiento ($r = 2$)</span>
+            <span data-lang="en">Growth ($r = 2$)</span>
+          </span>
+        </div>
+        <p>
+          <span data-lang="es">Una empresa decide duplicar su inversión semanal. La inversión inicial es de $\$1,000$.</span>
+          <span data-lang="en">A company decides to double its weekly investment. The initial investment is $\$1,000$.</span>
+        </p>
+        <ol type="a">
+          <li>
+            <span data-lang="es">Calcula la fórmula cerrada para dicha sucesión.</span>
+            <span data-lang="en">Find the closed-form formula for this sequence.</span>
+          </li>
+          <li>
+            <span data-lang="es">Calcula la fórmula cerrada para la serie.</span>
+            <span data-lang="en">Find the closed-form formula for the series.</span>
+          </li>
+          <li>
+            <span data-lang="es">¿Cuál es la inversión que realiza en la semana $8$?</span>
+            <span data-lang="en">What is the investment made in week $8$?</span>
+          </li>
+          <li>
+            <span data-lang="es">¿Cuánto tiene invertido en total finalizando la semana $8$?</span>
+            <span data-lang="en">How much is invested in total by the end of week $8$?</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Problema 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 2 &bull; Suscriptores en Plataforma Digital</span>
+            <span data-lang="en">Problem 2 &bull; Digital Platform Subscribers</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Expansión ($r = 3$)</span>
+            <span data-lang="en">Expansion ($r = 3$)</span>
+          </span>
+        </div>
+        <p>
+          <span data-lang="es">Cada mes, una plataforma digital triplica el número de nuevos suscriptores premium por mes. El primer mes obtiene $100$ miembros y cobra $\$10$ por cada uno.</span>
+          <span data-lang="en">Each month, a digital platform triples the number of new premium subscribers per month. In the first month it acquires $100$ members, charging $\$10$ each.</span>
+        </p>
+        <ol type="a">
+          <li>
+            <span data-lang="es">Calcula la fórmula cerrada para la sucesión de los ingresos mensuales.</span>
+            <span data-lang="en">Find the closed-form formula for the sequence of monthly revenues.</span>
+          </li>
+          <li>
+            <span data-lang="es">Calcula la fórmula cerrada para la serie de ingresos mensuales acumulados.</span>
+            <span data-lang="en">Find the closed-form formula for the series of cumulative monthly revenues.</span>
+          </li>
+          <li>
+            <span data-lang="es">¿En qué mes se obtiene un ingreso de $\$729,000$?</span>
+            <span data-lang="en">In which month is a revenue of $\$729,000$ achieved?</span>
+          </li>
+          <li>
+            <span data-lang="es">Determina el ingreso acumulado de los primeros $4$ meses.</span>
+            <span data-lang="en">Determine the cumulative revenue for the first $4$ months.</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Problema 3 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 3 &bull; Amortización Decreciente de Préstamo</span>
+            <span data-lang="en">Problem 3 &bull; Declining Loan Amortization</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Decaimiento ($r = 1/3$)</span>
+            <span data-lang="en">Decay ($r = 1/3$)</span>
+          </span>
+        </div>
+        <p>
+          <span data-lang="es">Una empresa tiene un préstamo cuyo pago inicial es de $\$3,486,784,401$. Cada mes debe pagar $1/3$ del pago anterior; por ejemplo, el primer mes se paga $\$1,162,261,467$, el segundo mes $\$387,420,489$, y así sucesivamente.</span>
+          <span data-lang="en">A company has a loan whose initial payment is $\$3,486,784,401$. Each month it pays $1/3$ of the previous payment; for example, the first month it pays $\$1,162,261,467$, the second month $\$387,420,489$, and so on.</span>
+        </p>
+        <ol type="a">
+          <li>
+            <span data-lang="es">Determina la fórmula cerrada para la sucesión de los pagos mensuales.</span>
+            <span data-lang="en">Determine the closed-form formula for the sequence of monthly payments.</span>
+          </li>
+          <li>
+            <span data-lang="es">Calcula la fórmula cerrada de la serie del total pagado.</span>
+            <span data-lang="en">Calculate the closed-form formula of the series for the total amount paid.</span>
+          </li>
+          <li>
+            <span data-lang="es">¿En qué mes se paga $\$1$?</span>
+            <span data-lang="en">In which month is $\$1$ paid?</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Problema 4 -->
+      <div class="problem-card" style="margin-bottom: 0;">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 4 &bull; Escalamiento de Producción Industrial</span>
+            <span data-lang="en">Problem 4 &bull; Industrial Production Scaling</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Índice desde Semana 1</span>
+            <span data-lang="en">Week 1 Indexing</span>
+          </span>
+        </div>
+        <p>
+          <span data-lang="es">Una fábrica de botellas duplica su producción semanal. En la primera semana se producen $50$ botellas, en la segunda $100$, y así sucesivamente.</span>
+          <span data-lang="en">A bottle factory doubles its weekly output. In the first week $50$ bottles are produced, in the second week $100$, and so on.</span>
+        </p>
+        <ol type="a">
+          <li>
+            <span data-lang="es">Determina la fórmula cerrada para la sucesión de producción semanal.</span>
+            <span data-lang="en">Determine the closed-form formula for the weekly production sequence.</span>
+          </li>
+          <li>
+            <span data-lang="es">Calcula la fórmula cerrada para la serie de la producción total.</span>
+            <span data-lang="en">Calculate the closed-form formula for the total production series.</span>
+          </li>
+          <li>
+            <span data-lang="es">¿En qué semana se producen $204,800$ botellas?</span>
+            <span data-lang="en">In which week are $204,800$ bottles produced?</span>
+          </li>
+          <li>
+            <span data-lang="es">¿Cuántas semanas pasaron para tener una producción total de $3,150$ botellas?</span>
+            <span data-lang="en">How many weeks elapsed to reach a total cumulative production of $3,150$ bottles?</span>
+          </li>
+        </ol>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Pie de página del curso -->
+  <footer class="course-footer">
+    <p>
+      <strong>
+        <span data-lang="es">Curso de Matemáticas Financieras</span>
+        <span data-lang="en">Financial Mathematics Course</span>
+      </strong> &bull;
+      <span data-lang="es">Notas Personales del Curso</span>
+      <span data-lang="en">Personal Course Notes</span>
+    </p>
+    <p style="margin-bottom:0;">Prof. Julio César Magaña Cáceres</p>
+  </footer>
+
+  <!-- Script del simulador y selector de idioma -->
+  <script>
+    let currentLang = 'es';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+      document.title = lang === 'es'
+        ? 'Sesión 03: Progresiones Geométricas y Crecimiento Exponencial | Matemáticas Financieras'
+        : 'Session 03: Geometric Progressions and Exponential Growth | Financial Mathematics';
+
+      calcularGeometrica();
+    }
+
+    function calcularGeometrica() {
+      const a0 = parseFloat(document.getElementById('input-a0').value) || 0;
+      const r = parseFloat(document.getElementById('input-r').value) || 0;
+      const n = parseInt(document.getElementById('input-n').value) || 0;
+      const locale = currentLang === 'es' ? 'es-MX' : 'en-US';
+
+      const an = a0 * Math.pow(r, n);
+      let sn = 0;
+      if (Math.abs(r - 1) < 1e-12) {
+        sn = a0 * (n + 1);
+      } else {
+        sn = (a0 * (Math.pow(r, n + 1) - 1)) / (r - 1);
+      }
+
+      document.getElementById('res-geom-formula').textContent =
+        `${a0.toLocaleString(locale)} · (${r.toLocaleString(locale)})^n`;
+      document.getElementById('res-geom-an').textContent =
+        an.toLocaleString(locale, { maximumFractionDigits: 4 });
+      document.getElementById('res-geom-sn').textContent =
+        sn.toLocaleString(locale, { maximumFractionDigits: 4 });
+    }
+
+    // Inicializar al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+      setLanguage('es');
+    });
+  </script>
+</body>
+</html>
