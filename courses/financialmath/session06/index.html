@@ -1,1 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sesión 06: Ecuaciones de Valor y Equivalencia Financiera | Matemáticas Financieras</title>
+  
+  <!-- Tipografías modernas y académicas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- MathJax 3 para renderizado matemático profesional -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      /* Paleta Azul Eléctrico Personalizada */
+      --primary: #0066FF;        /* Azul eléctrico vibrante */
+      --primary-dark: #004EC4;   /* Azul eléctrico profundo */
+      --primary-light: #EBF3FF;  /* Azul hielo muy suave para fondos */
+      --secondary: #0F172A;      /* Azul marino muy oscuro para contraste y lectura */
+      --accent: #0284C7;         /* Azul cian intenso para conexiones financieras */
+      --accent-light: #F0F9FF;
+      --bg-body: #F4F7FB;
+      --bg-card: #FFFFFF;
+      --text-main: #334155;
+      --text-muted: #64748B;
+      --border-color: #DBEAFE;
+      --shadow-sm: 0 1px 3px rgba(0, 102, 255, 0.06);
+      --shadow-md: 0 4px 12px rgba(0, 102, 255, 0.1);
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* Control de visibilidad por idioma */
+    html[lang="es"] [data-lang="en"] {
+      display: none !important;
+    }
+    html[lang="en"] [data-lang="es"] {
+      display: none !important;
+    }
+
+    /* Barra superior del curso */
+    .course-topbar {
+      background-color: var(--secondary);
+      color: #FFFFFF;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .course-topbar .course-title-bar {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #E2E8F0;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .course-topbar .course-badge {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      padding: 0.25rem 0.85rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      box-shadow: 0 0 12px rgba(0, 102, 255, 0.45);
+    }
+
+    /* Selector de idioma ES / EN */
+    .lang-switcher {
+      display: inline-flex;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #CBD5E1;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      color: #FFFFFF;
+    }
+
+    .lang-btn.active {
+      background-color: #FFFFFF;
+      color: var(--secondary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Encabezado Hero de la Sesión */
+    .session-header {
+      background: linear-gradient(135deg, #FFFFFF 0%, #EBF3FF 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 3rem 1.5rem 2.5rem;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .session-meta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .session-header h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.15rem;
+      color: var(--secondary);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .session-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 760px;
+    }
+
+    /* Índice rápido de contenidos */
+    .toc-nav {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: -1.5rem auto 2rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toc-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .toc-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      list-style: none;
+    }
+
+    .toc-links a {
+      text-decoration: none;
+      color: var(--secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .toc-links a:hover {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    /* Tarjetas de Sección */
+    .section-card {
+      background-color: var(--bg-card);
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-card h2 {
+      font-size: 1.45rem;
+      color: var(--secondary);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .section-number {
+      background-color: var(--primary);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-card h3 {
+      font-size: 1.15rem;
+      color: var(--secondary);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* Caja de Objetivos y Temas */
+    .objectives-box {
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .objectives-box h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .objectives-box ul {
+      margin-left: 1.25rem;
+      color: var(--text-main);
+    }
+
+    /* Cajas de Definición y Fórmulas */
+    .formula-box {
+      background-color: var(--primary-light);
+      border: 1px solid #BFDBFE;
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .formula-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    /* Diagrama de Flujo de Efectivo SVG */
+    .diagram-wrapper {
+      background-color: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .diagram-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    /* Tabla de Equivalencias */
+    .notation-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      font-size: 0.95rem;
+    }
+
+    .notation-table th,
+    .notation-table td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    .notation-table th {
+      background-color: var(--primary-light);
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .notation-table tr:nth-child(even) td {
+      background-color: #F8FAFC;
+    }
+
+    /* Cajas de Alerta / Nota Pedagógica */
+    .callout-note {
+      background-color: #FEFCE8;
+      border: 1px solid #FEF08A;
+      border-left: 4px solid #EAB308;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout-note strong.callout-title {
+      display: block;
+      color: #854D0E;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .callout-note ul,
+    .callout-note ol {
+      margin-left: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Puente Financiero / Aplicaciones */
+    .finance-bridge {
+      background: linear-gradient(135deg, var(--accent-light) 0%, #FFFFFF 100%);
+      border: 1px solid #BAE6FD;
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .finance-bridge h3 {
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    /* Ejemplos desplegables interactivos */
+    details.example-accordion {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      margin: 1rem 0;
+      background-color: #FFFFFF;
+      overflow: hidden;
+    }
+
+    details.example-accordion summary {
+      padding: 0.9rem 1.25rem;
+      font-weight: 600;
+      color: var(--secondary);
+      cursor: pointer;
+      background-color: #F8FAFC;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s;
+    }
+
+    details.example-accordion summary:hover {
+      background-color: var(--primary-light);
+    }
+
+    html[lang="es"] details.example-accordion summary::after {
+      content: "Ver desarrollo ▾";
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    html[lang="es"] details.example-accordion[open] summary::after {
+      content: "Ocultar desarrollo ▴";
+    }
+
+    html[lang="en"] details.example-accordion summary::after {
+      content: "Show solution ▾";
+      font-size: 0.82rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    html[lang="en"] details.example-accordion[open] summary::after {
+      content: "Hide solution ▴";
+    }
+
+    .accordion-content {
+      padding: 1.25rem;
+      border-top: 1px solid #E2E8F0;
+    }
+
+    .accordion-content ol {
+      margin-left: 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Simulador Interactivo */
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 0.35rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background-color: #FFFFFF;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.18);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      padding: 0.65rem 1.35rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0, 102, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .sim-results {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background-color: #F8FAFC;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      background: white;
+      padding: 0.85rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .metric-card span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .metric-card strong {
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+    }
+
+    /* Lista de Actividad / Práctica */
+    .problem-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      background-color: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+
+    .problem-card:hover {
+      border-color: #93C5FD;
+    }
+
+    .problem-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .problem-tag {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid #BFDBFE;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+    }
+
+    .problem-card ol,
+    .problem-card ul {
+      margin-left: 1.4rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Pie de página personal del curso */
+    .course-footer {
+      background-color: var(--secondary);
+      color: #94A3B8;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.875rem;
+      border-top: 3px solid var(--primary);
+    }
+
+    .course-footer strong {
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 640px) {
+      .section-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .session-header h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior del curso -->
+  <header class="course-topbar">
+    <span class="course-title-bar">
+      <span data-lang="es">Curso de Matemáticas Financieras</span>
+      <span data-lang="en">Financial Mathematics Course</span>
+    </span>
+    <div class="topbar-right">
+      <span class="course-badge">
+        <span data-lang="es">Módulo 2 &bull; Sesión 06</span>
+        <span data-lang="en">Module 2 &bull; Session 06</span>
+      </span>
+      <div class="lang-switcher" role="group" aria-label="Selector de idioma / Language switcher">
+        <button type="button" class="lang-btn active" id="btn-es" onclick="setLanguage('es')">ES</button>
+        <button type="button" class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Encabezado de la Sesión -->
+  <section class="session-header">
+    <div class="container">
+      <div class="session-meta">
+        <span data-lang="es">Valuación Temporal y Renegociación</span>
+        <span data-lang="en">Time Valuation &amp; Debt Restructuring</span>
+        <span>&bull;</span>
+        <span>Prof. Julio César Magaña Cáceres</span>
+      </div>
+      <h1>
+        <span data-lang="es">Ecuaciones de Valor y Equivalencia Financiera</span>
+        <span data-lang="en">Equations of Value and Financial Equivalence</span>
+      </h1>
+      <p class="session-subtitle">
+        <span data-lang="es">Fecha focal y valuación de flujos de efectivo, diagramas de tiempo, consolidación y reestructuración de deudas, y sustitución de múltiples obligaciones por un pago único.</span>
+        <span data-lang="en">Focal date and cash flow valuation, cash flow diagrams, debt consolidation and restructuring, and replacement of multiple obligations with a single payment.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenido Principal -->
+  <main class="container">
+
+    <!-- Navegación interna rápida -->
+    <nav class="toc-nav" aria-label="Índice de la sesión">
+      <span class="toc-title">
+        <span data-lang="es">Contenido:</span>
+        <span data-lang="en">Contents:</span>
+      </span>
+      <ul class="toc-links">
+        <li><a href="#equivalencia"><span data-lang="es">1. Equivalencia y Fecha Focal</span><span data-lang="en">1. Equivalence &amp; Focal Date</span></a></li>
+        <li><a href="#diagramas"><span data-lang="es">2. Diagramas y Valuación</span><span data-lang="en">2. Diagrams &amp; Valuation</span></a></li>
+        <li><a href="#consolidacion"><span data-lang="es">3. Reestructuración y Pago Único</span><span data-lang="en">3. Restructuring &amp; Single Payment</span></a></li>
+        <li><a href="#ejemplos"><span data-lang="es">4. Ejemplos Resueltos</span><span data-lang="en">4. Worked Examples</span></a></li>
+        <li><a href="#simulador"><span data-lang="es">5. Simulador</span><span data-lang="en">5. Simulator</span></a></li>
+        <li><a href="#actividad"><span data-lang="es">6. Actividad Práctica</span><span data-lang="en">6. Practice Activity</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Temas y Objetivos de la Sesión -->
+    <div class="objectives-box">
+      <h3>
+        <span data-lang="es">Temas y Objetivos de la Sesión</span>
+        <span data-lang="en">Session Topics &amp; Objectives</span>
+      </h3>
+      <ul>
+        <li>
+          <span data-lang="es"><strong>Equivalencia financiera:</strong> Comprender por qué flujos ubicados en distintas fechas solo son comparables tras ajustarlos mediante una tasa de interés.</span>
+          <span data-lang="en"><strong>Financial equivalence:</strong> Understand why cash flows at different points in time are comparable only after adjusting for an interest rate.</span>
+        </li>
+        <li>
+          <span data-lang="es"><strong>Fecha focal y fecha de valuación:</strong> Seleccionar el punto común de referencia en el tiempo para igualar obligaciones originales y nuevos compromisos.</span>
+          <span data-lang="en"><strong>Focal date and valuation date:</strong> Select a common reference point in time to equate original obligations and new payment commitments.</span>
+        </li>
+        <li>
+          <span data-lang="es"><strong>Diagramas de flujo de efectivo:</strong> Representar gráficamente ingresos, egresos, vencimientos y direcciones de traslado en el tiempo.</span>
+          <span data-lang="en"><strong>Cash flow diagrams:</strong> Graphically represent inflows, outflows, maturities, and time-shifting directions.</span>
+        </li>
+        <li>
+          <span data-lang="es"><strong>Valor presente y futuro de obligaciones financieras:</strong> Capitalizar montos anteriores a la fecha focal y descontar montos posteriores.</span>
+          <span data-lang="en"><strong>Present and future value of financial obligations:</strong> Compound cash flows occurring before the focal date and discount those occurring after.</span>
+        </li>
+        <li>
+          <span data-lang="es"><strong>Consolidación, reestructuración y pago único equivalente:</strong> Sustituir varios vencimientos por un solo pago o por un nuevo calendario refinanciado.</span>
+          <span data-lang="en"><strong>Consolidation, restructuring, and single payment replacement:</strong> Replace multiple due dates with one lump-sum payment or a refinanced schedule.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- SECCIÓN 1: Equivalencia Financiera y Fecha Focal -->
+    <article id="equivalencia" class="section-card">
+      <h2>
+        <span class="section-number">1</span>
+        <span data-lang="es">Equivalencia Financiera, Fecha Focal y Fecha de Valuación</span>
+        <span data-lang="en">Financial Equivalence, Focal Date, and Valuation Date</span>
+      </h2>
+      <p>
+        <span data-lang="es">Las <strong>ecuaciones de valor</strong> constituyen una herramienta fundamental de las Matemáticas Financieras. Su principio parte del <strong>valor del dinero en el tiempo</strong>: una cantidad de dinero hoy no posee el mismo valor económico que la misma cantidad en el futuro debido a su capacidad de generar rendimientos.</span>
+        <span data-lang="en"><strong>Equations of value</strong> are a foundational tool in Financial Mathematics. Their underlying principle is the <strong>time value of money</strong>: an amount of money today does not hold the same economic value as the same nominal amount in the future due to its earning potential.</span>
+      </p>
+      <p>
+        <span data-lang="es">Dos conjuntos de flujos de efectivo son <strong>financieramente equivalentes</strong> a una tasa de interés compuesta dada $i$ si, al trasladar todos sus montos a una misma <strong>fecha focal (fecha de valuación)</strong>, la suma valuada de las obligaciones originales iguala exactamente la suma valuada de los nuevos pagos propuestos.</span>
+        <span data-lang="en">Two sets of cash flows are <strong>financially equivalent</strong> at a given compound interest rate $i$ if, when all amounts are shifted to a single <strong>focal date (valuation date)</strong>, the valued sum of the original obligations equals the valued sum of the newly proposed payments.</span>
+      </p>
+
+      <div class="formula-box">
+        <div class="formula-title">
+          <span data-lang="es">Principio Fundamental de la Ecuación de Valor</span>
+          <span data-lang="en">Fundamental Equation of Value Principle</span>
+        </div>
+        $$\sum \text{Obligaciones originales}_{\text{(en fecha focal)}} = \sum \text{Nuevos pagos}_{\text{(en fecha focal)}}$$
+        <p style="margin-top: 0.5rem; margin-bottom: 0; font-size: 0.92rem;">
+          <span data-lang="es"><strong>Invarianza bajo interés compuesto:</strong> Cuando se emplea interés compuesto con una tasa constante $i$, la solución de la ecuación de valor es <em>exactamente la misma</em> sin importar qué fecha focal se elija, porque multiplicar o dividir toda la igualdad por $(1+i)^k$ conserva la equivalencia.</span>
+          <span data-lang="en"><strong>Invariance under compound interest:</strong> Under compound interest with a constant rate $i$, the solution to the equation of value is <em>identical</em> regardless of which focal date is chosen, since multiplying or dividing both sides by $(1+i)^k$ preserves equality.</span>
+        </p>
+      </div>
+    </article>
+
+    <!-- SECCIÓN 2: Diagramas de Flujo de Efectivo y Traslado Temporal -->
+    <article id="diagramas" class="section-card">
+      <h2>
+        <span class="section-number">2</span>
+        <span data-lang="es">Diagramas de Flujo de Efectivo y Valuación de Obligaciones</span>
+        <span data-lang="en">Cash Flow Diagrams and Valuation of Financial Obligations</span>
+      </h2>
+      <p>
+        <span data-lang="es">Un <strong>diagrama de flujo de efectivo (línea de tiempo)</strong> representa visualmente el horizonte de la operación: arriba de la línea se suelen colocar las obligaciones originales y abajo los pagos propuestos (o viceversa), identificando claramente la <strong>fecha focal ($FF$)</strong>.</span>
+        <span data-lang="en">A <strong>cash flow diagram (timeline)</strong> visually maps the horizon of a transaction: original obligations are typically placed above the line and proposed payments below (or vice versa), clearly marking the <strong>focal date ($FD$)</strong>.</span>
+      </p>
+
+      <!-- Diagrama SVG ilustrativo -->
+      <div class="diagram-wrapper">
+        <svg width="680" height="170" viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama de flujo de efectivo con fecha focal en t = 1">
+          <!-- Línea horizontal del tiempo -->
+          <line x1="70" y1="90" x2="610" y2="90" stroke="#0F172A" stroke-width="2.5"/>
+          
+          <!-- Marcas de tiempo t=0, t=1, t=2 -->
+          <circle cx="110" cy="90" r="5" fill="#0066FF"/>
+          <text x="110" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0F172A">t = 0</text>
+          
+          <circle cx="340" cy="90" r="6" fill="#0284C7"/>
+          <line x1="340" y1="22" x2="340" y2="155" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="5,4"/>
+          <text x="340" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0284C7">FECHA FOCAL (t = 1)</text>
+          
+          <circle cx="570" cy="90" r="5" fill="#0066FF"/>
+          <text x="570" y="114" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0F172A">t = 2</text>
+
+          <!-- Flujo en t = 0 -->
+          <line x1="110" y1="84" x2="110" y2="42" stroke="#0066FF" stroke-width="2.5"/>
+          <polygon points="110,36 105,45 115,45" fill="#0066FF"/>
+          <text x="110" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0066FF">$1,000</text>
+
+          <!-- Flujo en t = 2 -->
+          <line x1="570" y1="84" x2="570" y2="42" stroke="#0066FF" stroke-width="2.5"/>
+          <polygon points="570,36 565,45 575,45" fill="#0066FF"/>
+          <text x="570" y="28" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0066FF">$2,000</text>
+
+          <!-- Pago único X en t = 1 -->
+          <line x1="340" y1="96" x2="340" y2="136" stroke="#0F172A" stroke-width="2.5"/>
+          <polygon points="340,142 335,133 345,133" fill="#0F172A"/>
+          <text x="372" y="138" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="700" fill="#0F172A">Pago X</text>
+
+          <!-- Arcos de traslado hacia fecha focal -->
+          <path d="M 122 65 Q 225 45 328 65" fill="none" stroke="#0066FF" stroke-width="1.8" stroke-dasharray="4,3"/>
+          <polygon points="332,66 323,61 325,69" fill="#0066FF"/>
+          <text x="225" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#004EC4">Capitalizar: × (1+i)¹</text>
+
+          <path d="M 558 65 Q 455 45 352 65" fill="none" stroke="#0066FF" stroke-width="1.8" stroke-dasharray="4,3"/>
+          <polygon points="348,66 355,69 357,61" fill="#0066FF"/>
+          <text x="455" y="48" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#004EC4">Descontar: ÷ (1+i)¹</text>
+        </svg>
+        <p class="diagram-caption">
+          <span data-lang="es">Traslado de obligaciones hacia una fecha focal intermedia ($t = 1$): los flujos anteriores se capitalizan y los posteriores se descuentan.</span>
+          <span data-lang="en">Shifting obligations to an intermediate focal date ($t = 1$): earlier cash flows are compounded and later cash flows are discounted.</span>
+        </p>
+      </div>
+
+      <table class="notation-table">
+        <thead>
+          <tr>
+            <th><span data-lang="es">Ubicación del Flujo</span><span data-lang="en">Cash Flow Timing</span></th>
+            <th><span data-lang="es">Dirección del Traslado</span><span data-lang="en">Direction of Shift</span></th>
+            <th><span data-lang="es">Operación Matemática ($n$ periodos)</span><span data-lang="en">Mathematical Operation ($n$ periods)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-lang="es"><strong>Antes</strong> de la fecha focal</span><span data-lang="en"><strong>Before</strong> the focal date</span></td>
+            <td><span data-lang="es">Hacia el futuro (derechas en la línea)</span><span data-lang="en">Forward in time (right on timeline)</span></td>
+            <td><strong>Capitalización:</strong> $VF = VP(1 + i)^n$</td>
+          </tr>
+          <tr>
+            <td><span data-lang="es"><strong>En</strong> la fecha focal ($n = 0$)</span><span data-lang="en"><strong>At</strong> the focal date ($n = 0$)</span></td>
+            <td><span data-lang="es">Sin desplazamiento temporal</span><span data-lang="en">No time shift required</span></td>
+            <td><strong>Valor nominal directo:</strong> $M(1 + i)^0 = M$</td>
+          </tr>
+          <tr>
+            <td><span data-lang="es"><strong>Después</strong> de la fecha focal</span><span data-lang="en"><strong>After</strong> the focal date</span></td>
+            <td><span data-lang="es">Hacia el presente (izquierda en la línea)</span><span data-lang="en">Backward in time (left on timeline)</span></td>
+            <td><strong>Descuento:</strong> $VP = \dfrac{VF}{(1 + i)^n} = VF(1 + i)^{-n}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <!-- SECCIÓN 3: Consolidación, Reestructuración y Pago Único -->
+    <article id="consolidacion" class="section-card">
+      <h2>
+        <span class="section-number">3</span>
+        <span data-lang="es">Consolidación, Reestructuración y Sustitución por Pago Único</span>
+        <span data-lang="en">Debt Consolidation, Restructuring, and Single Payment Replacement</span>
+      </h2>
+      <p>
+        <span data-lang="es">En la gestión financiera empresarial y personal, las ecuaciones de valor resuelven dos operaciones frecuentes de renegociación de pasivos:</span>
+        <span data-lang="en">In corporate and personal financial management, equations of value solve two common liability renegotiation scenarios:</span>
+      </p>
+
+      <div class="finance-bridge">
+        <h3>
+          <span data-lang="es">Modalidades Principales de Renegociación</span>
+          <span data-lang="en">Core Renegotiation Structures</span>
+        </h3>
+        <ul style="margin-left: 1.25rem; margin-bottom: 0;">
+          <li>
+            <span data-lang="es"><strong>Sustitución de múltiples pagos por un pago único ($X$):</strong> Varias deudas con vencimientos escalonados ($D_1, D_2, \dots, D_k$) se liquidan mediante un solo pago $X$ en una fecha convenida $t^*$. Si elegimos $t^*$ como fecha focal, $X$ es igual a la suma de cada deuda capitalizada o descontada hasta $t^*$.</span>
+            <span data-lang="en"><strong>Replacement of multiple payments with a single payment ($X$):</strong> Several debts with staggered due dates ($D_1, D_2, \dots, D_k$) are settled via one lump-sum payment $X$ on an agreed date $t^*$. Choosing $t^*$ as the focal date sets $X$ equal to the sum of all debts compounded or discounted to $t^*$.</span>
+          </li>
+          <li>
+            <span data-lang="es"><strong>Consolidación y reestructuración de deudas:</strong> Un conjunto de obligaciones vigentes se reemplaza por un <em>nuevo calendario de pagos</em> (por ejemplo, un enganche hoy más dos abonos iguales $X$ en meses futuros). Todos los flujos —tanto deudas antiguas como nuevos abonos— se valúan en la fecha focal para despejar $X$.</span>
+            <span data-lang="en"><strong>Debt consolidation and restructuring:</strong> A set of existing obligations is replaced by a <em>new payment schedule</em> (such as a down payment today plus two equal installments $X$ in future months). All cash flows—both old debts and new installments—are valued at the focal date to solve for $X$.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="callout-note">
+        <strong class="callout-title">
+          <span data-lang="es">Metodología en 5 Pasos para Resolver Ecuaciones de Valor</span>
+          <span data-lang="en">5-Step Methodology for Solving Equations of Value</span>
+        </strong>
+        <ol>
+          <li><span data-lang="es"><strong>Dibujar la línea de tiempo</strong> ubicando fechas y montos de deudas originales y nuevos pagos.</span><span data-lang="en"><strong>Draw the timeline</strong> placing dates and amounts of original debts and new payments.</span></li>
+          <li><span data-lang="es"><strong>Verificar la tasa periódica ($i$)</strong> y asegurar que la unidad de tiempo del exponente $n$ coincida con el periodo de capitalización de $i$.</span><span data-lang="en"><strong>Verify the periodic interest rate ($i$)</strong> and ensure the time unit of exponent $n$ matches the compounding period of $i$.</span></li>
+          <li><span data-lang="es"><strong>Elegir una fecha focal</strong> (preferentemente donde se ubica la incógnita principal $X$ para simplificar el álgebra).</span><span data-lang="en"><strong>Choose a focal date</strong> (preferably where the main unknown $X$ is located to simplify algebra).</span></li>
+          <li><span data-lang="es"><strong>Trasladar todos los flujos</strong> a la fecha focal usando $(1+i)^n$ para capitalizar y $(1+i)^{-n}$ para descontar.</span><span data-lang="en"><strong>Shift all cash flows</strong> to the focal date using $(1+i)^n$ to compound and $(1+i)^{-n}$ to discount.</span></li>
+          <li><span data-lang="es"><strong>Plantear y resolver la ecuación</strong> igualando la suma de obligaciones con la suma de pagos.</span><span data-lang="en"><strong>Set up and solve the equation</strong> by equating the sum of obligations to the sum of payments.</span></li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- SECCIÓN 4: Ejemplos Resueltos -->
+    <article id="ejemplos" class="section-card">
+      <h2>
+        <span class="section-number">4</span>
+        <span data-lang="es">Ejemplos Resueltos Paso a Paso</span>
+        <span data-lang="en">Step-by-Step Worked Examples</span>
+      </h2>
+      <p>
+        <span data-lang="es">Revisa estos cuatro ejemplos que cubren sustitución por pago único con exponentes enteros, fraccionarios y reestructuración con pagos múltiples:</span>
+        <span data-lang="en">Review these four examples covering single-payment replacement with integer exponents, fractional exponents, and multi-payment restructuring:</span>
+      </p>
+
+      <!-- Ejemplo 1 -->
+      <details class="example-accordion">
+        <summary>
+          <span data-lang="es">Ejemplo 1: Sustitución de dos deudas por un pago único ($i = 10\%$ anual)</span>
+          <span data-lang="en">Example 1: Replacing two debts with a single payment ($i = 10\%$ annual)</span>
+        </summary>
+        <div class="accordion-content">
+          <p>
+            <span data-lang="es"><strong>Planteamiento:</strong> Un comerciante debe pagar $\$1,000$ hoy ($t = 0$) y $\$2,000$ dentro de $2$ años ($t = 2$). Desea sustituir ambas deudas por un único pago $X$ dentro de $1$ año ($t = 1$), con una tasa del $10\%$ anual compuesto.</span>
+            <span data-lang="en"><strong>Problem Statement:</strong> A merchant owes $\$1,000$ today ($t = 0$) and $\$2,000$ in $2$ years ($t = 2$). He wishes to replace both debts with a single payment $X$ in $1$ year ($t = 1$), at a $10\%$ annual compound rate.</span>
+          </p>
+          <ol>
+            <li>
+              <span data-lang="es"><strong>Fecha focal:</strong> Elegimos el año $1$ ($t = 1$).</span>
+              <span data-lang="en"><strong>Focal date:</strong> Choose year $1$ ($t = 1$).</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Traslado de obligaciones:</strong><br>
+              Capitalizamos $\$1,000$ un año hacia adelante: $1,000(1.10)^1 = \$1,100.00$.<br>
+              Descontamos $\$2,000$ un año hacia atrás: $\dfrac{2,000}{(1.10)^1} = \$1,818.18$.</span>
+              <span data-lang="en"><strong>Shifting obligations:</strong><br>
+              Compound $\$1,000$ one year forward: $1,000(1.10)^1 = \$1,100.00$.<br>
+              Discount $\$2,000$ one year backward: $\dfrac{2,000}{(1.10)^1} = \$1,818.18$.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Ecuación de valor:</strong> $X = 1,100.00 + 1,818.18 = \$2,918.18$.</span>
+              <span data-lang="en"><strong>Equation of value:</strong> $X = 1,100.00 + 1,818.18 = \$2,918.18$.</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Ejemplo 2 -->
+      <details class="example-accordion">
+        <summary>
+          <span data-lang="es">Ejemplo 2: Refinanciamiento empresarial con capitalización semestral</span>
+          <span data-lang="en">Example 2: Corporate refinancing with semiannual compounding</span>
+        </summary>
+        <div class="accordion-content">
+          <p>
+            <span data-lang="es"><strong>Planteamiento:</strong> Una empresa debe $\$5,000$ dentro de $6$ meses y $\$8,000$ dentro de $12$ meses. Acuerda liquidar ambas mediante un pago único $X$ dentro de $9$ meses, pactando una tasa del $12\%$ anual capitalizable semestralmente.</span>
+            <span data-lang="en"><strong>Problem Statement:</strong> A company owes $\$5,000$ in $6$ months and $\$8,000$ in $12$ months. It agrees to settle both with a single payment $X$ in $9$ months, at $12\%$ annual interest compounded semiannually.</span>
+          </p>
+          <ol>
+            <li>
+              <span data-lang="es"><strong>Tasa periódica semestral:</strong> $i = \frac{0.12}{2} = 0.06$ ($6\%$ semestral). Cada semestre dura $6$ meses, por lo que $3$ meses equivalen a $0.5$ semestres.</span>
+              <span data-lang="en"><strong>Periodic semiannual rate:</strong> $i = \frac{0.12}{2} = 0.06$ ($6\%$ semiannual). Each semester is $6$ months, so $3$ months equal $0.5$ semesters.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Fecha focal (mes 9):</strong><br>
+              Capitalizamos $\$5,000$ por $3$ meses ($0.5$ semestres): $5,000(1.06)^{0.5} = \$5,147.82$.<br>
+              Descontamos $\$8,000$ por $3$ meses ($0.5$ semestres): $\dfrac{8,000}{(1.06)^{0.5}} = \$7,770.29$.</span>
+              <span data-lang="en"><strong>Focal date (month 9):</strong><br>
+              Compound $\$5,000$ for $3$ months ($0.5$ semesters): $5,000(1.06)^{0.5} = \$5,147.82$.<br>
+              Discount $\$8,000$ for $3$ months ($0.5$ semesters): $\dfrac{8,000}{(1.06)^{0.5}} = \$7,770.29$.</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Pago único equivalente:</strong> $X = 5,147.82 + 7,770.29 = \$12,918.10$.</span>
+              <span data-lang="en"><strong>Equivalent single payment:</strong> $X = 5,147.82 + 7,770.29 = \$12,918.10$.</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Ejemplo 3 -->
+      <details class="example-accordion">
+        <summary>
+          <span data-lang="es">Ejemplo 3: Pago único equivalente en calendario mensual ($i = 8\%$ anual)</span>
+          <span data-lang="en">Example 3: Single equivalent payment on a monthly calendar ($i = 8\%$ annual)</span>
+        </summary>
+        <div class="accordion-content">
+          <p>
+            <span data-lang="es"><strong>Planteamiento:</strong> Un estudiante debe pagar $\$3,000$ en enero y $\$4,000$ en julio. Desea realizar un único pago $X$ en abril con una tasa del $8\%$ efectivo anual.</span>
+            <span data-lang="en"><strong>Problem Statement:</strong> A student owes $\$3,000$ in January and $\$4,000$ in July, and wishes to make a single payment $X$ in April at an $8\%$ effective annual rate.</span>
+          </p>
+          <ol>
+            <li>
+              <span data-lang="es"><strong>Fecha focal (abril):</strong> De enero a abril transcurren $3$ meses ($3/12$ de año) y de julio a abril se retroceden $3$ meses ($3/12$ de año).</span>
+              <span data-lang="en"><strong>Focal date (April):</strong> From January to April is $3$ months ($3/12$ year), and from July back to April is $3$ months ($3/12$ year).</span>
+            </li>
+            <li>
+              <span data-lang="es"><strong>Ecuación de valor:</strong></span>
+              <span data-lang="en"><strong>Equation of value:</strong></span>
+              $$X = 3,000(1.08)^{3/12} + \frac{4,000}{(1.08)^{3/12}} = 3,058.24 + 3,923.81 = \$6,982.05$$
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- Ejemplo 4 -->
+      <details class="example-accordion">
+        <summary>
+          <span data-lang="es">Ejemplo 4: Reestructuración de deudas en dos abonos iguales ($X$)</span>
+          <span data-lang="en">Example 4: Restructuring debts into two equal installments ($X$)</span>
+        </summary>
+        <div class="accordion-content">
+          <p>
+            <span data-lang="es"><strong>Planteamiento:</strong> Una deuda de $\$10,000$ que vence en $3$ meses y otra de $\$15,000$ que vence en $9$ meses se reestructuran mediante un pago inicial de $\$5,000$ hoy ($t = 0$) y dos pagos iguales $X$ en los meses $6$ y $12$, con tasa del $12\%$ anual capitalizable mensualmente ($i = 1\%$ mensual).</span>
+            <span data-lang="en"><strong>Problem Statement:</strong> A $\$10,000$ debt due in $3$ months and a $\$15,000$ debt due in $9$ months are restructured with $\$5,000$ paid today ($t = 0$) plus two equal payments $X$ at months $6$ and $12$, at $12\%$ annual interest compounded monthly ($i = 1\%$ monthly).</span>
+          </p>
+          <ol>
+            <li>
+              <span data-lang="es"><strong>Fecha focal (mes 12):</strong> Llevamos todos los flujos al mes $12$:</span>
+              <span data-lang="en"><strong>Focal date (month 12):</strong> Shift all cash flows to month $12$:</span>
+              $$10,000(1.01)^9 + 15,000(1.01)^3 = 5,000(1.01)^{12} + X(1.01)^6 + X$$
+            </li>
+            <li>
+              <span data-lang="es"><strong>Evaluación numérica:</strong></span>
+              <span data-lang="en"><strong>Numerical evaluation:</strong></span>
+              $$10,936.85 + 15,454.52 = 5,634.13 + X(1.061520 + 1)$$
+              $$26,391.37 - 5,634.13 = 2.061520 X \implies X = \frac{20,757.24}{2.061520} \approx \$10,068.90$$
+            </li>
+          </ol>
+        </div>
+      </details>
+    </article>
+
+    <!-- SECCIÓN 5: Simulador Interactivo de Ecuación de Valor -->
+    <article id="simulador" class="section-card">
+      <h2>
+        <span class="section-number">5</span>
+        <span data-lang="es">Simulador de Consolidación en Pago Único ($X$)</span>
+        <span data-lang="en">Single-Payment Consolidation Simulator ($X$)</span>
+      </h2>
+      <p>
+        <span data-lang="es">Ingresa dos obligaciones ($D_1, D_2$) con sus respectivos tiempos de vencimiento ($t_1, t_2$), la tasa por periodo ($i\%$) y la fecha focal ($t_{FF}$) donde se liquidarán mediante un pago único $X$.</span>
+        <span data-lang="en">Enter two obligations ($D_1, D_2$) with their due times ($t_1, t_2$), periodic interest rate ($i\%$), and the focal date ($t_{FD}$) where they will be settled via a single payment $X$.</span>
+      </p>
+
+      <div class="simulator-grid">
+        <div class="input-group">
+          <label for="ev-d1">
+            <span data-lang="es">Obligación 1 ($D_1$)</span>
+            <span data-lang="en">Obligation 1 ($D_1$)</span>
+          </label>
+          <input type="number" id="ev-d1" value="5000" step="100">
+        </div>
+        <div class="input-group">
+          <label for="ev-t1">
+            <span data-lang="es">Periodo $D_1$ ($t_1$)</span>
+            <span data-lang="en">Period $D_1$ ($t_1$)</span>
+          </label>
+          <input type="number" id="ev-t1" value="1" step="0.5">
+        </div>
+        <div class="input-group">
+          <label for="ev-d2">
+            <span data-lang="es">Obligación 2 ($D_2$)</span>
+            <span data-lang="en">Obligation 2 ($D_2$)</span>
+          </label>
+          <input type="number" id="ev-d2" value="8000" step="100">
+        </div>
+        <div class="input-group">
+          <label for="ev-t2">
+            <span data-lang="es">Periodo $D_2$ ($t_2$)</span>
+            <span data-lang="en">Period $D_2$ ($t_2$)</span>
+          </label>
+          <input type="number" id="ev-t2" value="2" step="0.5">
+        </div>
+        <div class="input-group">
+          <label for="ev-rate">
+            <span data-lang="es">Tasa del periodo ($i\%$)</span>
+            <span data-lang="en">Periodic rate ($i\%$)</span>
+          </label>
+          <input type="number" id="ev-rate" value="6" step="0.1">
+        </div>
+        <div class="input-group">
+          <label for="ev-ff">
+            <span data-lang="es">Fecha focal ($t_{FF}$)</span>
+            <span data-lang="en">Focal date ($t_{FD}$)</span>
+          </label>
+          <input type="number" id="ev-ff" value="1.5" step="0.5">
+        </div>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="calcularEcuacionValor()">
+        <span data-lang="es">Calcular Pago Único Equivalente</span>
+        <span data-lang="en">Calculate Equivalent Single Payment</span>
+      </button>
+
+      <div class="sim-results" id="sim-results">
+        <div class="metric-card">
+          <span>
+            <span data-lang="es">$D_1$ en Fecha Focal</span>
+            <span data-lang="en">$D_1$ at Focal Date</span>
+          </span>
+          <strong id="res-ev-d1">$5,147.82</strong>
+        </div>
+        <div class="metric-card">
+          <span>
+            <span data-lang="es">$D_2$ en Fecha Focal</span>
+            <span data-lang="en">$D_2$ at Focal Date</span>
+          </span>
+          <strong id="res-ev-d2">$7,770.29</strong>
+        </div>
+        <div class="metric-card">
+          <span>
+            <span data-lang="es">Pago Único Equivalente ($X$)</span>
+            <span data-lang="en">Equivalent Single Payment ($X$)</span>
+          </span>
+          <strong id="res-ev-total">$12,918.10</strong>
+        </div>
+      </div>
+    </article>
+
+    <!-- SECCIÓN 6: Actividad de Práctica -->
+    <article id="actividad" class="section-card">
+      <h2>
+        <span class="section-number">6</span>
+        <span data-lang="es">Actividad Práctica: Ecuaciones de Valor y Reestructuración</span>
+        <span data-lang="en">Practice Activity: Equations of Value &amp; Debt Restructuring</span>
+      </h2>
+      <p>
+        <span data-lang="es">Dibuja el diagrama de flujo de efectivo para cada ejercicio, indica claramente la fecha focal elegida y resuelve la incógnita solicitada.</span>
+        <span data-lang="en">Draw the cash flow diagram for each problem, clearly indicate your chosen focal date, and solve for the requested unknown.</span>
+      </p>
+
+      <!-- Problema 1 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 1 &bull; Sustitución por Pago Único</span>
+            <span data-lang="en">Problem 1 &bull; Replacement with a Single Payment</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Capitalización Trimestral</span>
+            <span data-lang="en">Quarterly Compounding</span>
+          </span>
+        </div>
+        <p style="margin-bottom: 0;">
+          <span data-lang="es">Una persona tiene dos deudas: $\$12,000$ que vencen dentro de $3$ meses y $\$18,000$ que vencen dentro de $9$ meses. Si desea liquidar ambas deudas mediante un pago único dentro de $6$ meses y la tasa de interés es del $16\%$ anual capitalizable trimestralmente, ¿cuál es el importe del pago único?</span>
+          <span data-lang="en">A person has two debts: $\$12,000$ due in $3$ months and $\$18,000$ due in $9$ months. If they wish to settle both debts with a single payment in $6$ months at $16\%$ annual interest compounded quarterly, what is the amount of the single payment?</span>
+        </p>
+      </div>
+
+      <!-- Problema 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 2 &bull; Consolidación de Tres Pasivos</span>
+            <span data-lang="en">Problem 2 &bull; Consolidation of Three Liabilities</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Capitalización Mensual</span>
+            <span data-lang="en">Monthly Compounding</span>
+          </span>
+        </div>
+        <p style="margin-bottom: 0;">
+          <span data-lang="es">Una comercializadora debe pagar $\$8,500$ hoy, $\$14,200$ dentro de $4$ meses y $\$21,000$ dentro de $10$ meses. Renegocia con su acreedor realizar un solo pago al finalizar el mes $8$. Si la tasa pactada es del $15\%$ anual capitalizable mensualmente, determina el monto del pago único.</span>
+          <span data-lang="en">A distributor owes $\$8,500$ today, $\$14,200$ in $4$ months, and $\$21,000$ in $10$ months. It renegotiates with its creditor to make a single lump-sum payment at the end of month $8$. At $15\%$ annual interest compounded monthly, determine the single payment amount.</span>
+        </p>
+      </div>
+
+      <!-- Problema 3 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 3 &bull; Reestructuración en Dos Pagos Iguales</span>
+            <span data-lang="en">Problem 3 &bull; Restructuring into Two Equal Payments</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Plan de Abonos</span>
+            <span data-lang="en">Installment Plan</span>
+          </span>
+        </div>
+        <p style="margin-bottom: 0;">
+          <span data-lang="es">Un empresario tiene una obligación de $\$25,000$ con vencimiento en $6$ meses y otra de $\$35,000$ con vencimiento en $18$ meses. Propone sustituir ambas obligaciones por dos pagos iguales $X$, el primero en el mes $12$ y el segundo en el mes $24$. Calcula el valor de $X$ considerando una tasa del $18\%$ anual capitalizable semestralmente.</span>
+          <span data-lang="en">An entrepreneur has a $\$25,000$ obligation due in $6$ months and a $\$35,000$ obligation due in $18$ months. He proposes replacing both with two equal payments $X$, the first at month $12$ and the second at month $24$. Compute $X$ assuming an $18\%$ annual interest rate compounded semiannually.</span>
+        </p>
+      </div>
+
+      <!-- Problema 4 -->
+      <div class="problem-card" style="margin-bottom: 0;">
+        <div class="problem-header">
+          <strong>
+            <span data-lang="es">Problema 4 &bull; Enganche y Saldo Refinanciado</span>
+            <span data-lang="en">Problem 4 &bull; Down Payment &amp; Refinanced Balance</span>
+          </strong>
+          <span class="problem-tag">
+            <span data-lang="es">Equivalencia Completa</span>
+            <span data-lang="en">Full Equivalence</span>
+          </span>
+        </div>
+        <p style="margin-bottom: 0;">
+          <span data-lang="es">Una deuda de $\$40,000$ vencida hace $2$ meses y otra de $\$50,000$ que vence dentro de $4$ meses se reestructuran pagando $\$20,000$ el día de hoy y el resto mediante dos pagos: uno de monto $X$ en $3$ meses y otro de monto $2X$ en $6$ meses. Si la tasa de interés compuesto es del $1.5\%$ efectivo mensual, halla el valor de ambos pagos.</span>
+          <span data-lang="en">A $\$40,000$ debt that matured $2$ months ago and a $\$50,000$ debt due in $4$ months are restructured by paying $\$20,000$ today and the remainder in two installments: one of amount $X$ in $3$ months and another of amount $2X$ in $6$ months. If the compound interest rate is $1.5\%$ effective monthly, find the value of both payments.</span>
+        </p>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Pie de página del curso -->
+  <footer class="course-footer">
+    <p>
+      <strong>
+        <span data-lang="es">Curso de Matemáticas Financieras</span>
+        <span data-lang="en">Financial Mathematics Course</span>
+      </strong> &bull;
+      <span data-lang="es">Notas Personales del Curso</span>
+      <span data-lang="en">Personal Course Notes</span>
+    </p>
+    <p style="margin-bottom:0;">Prof. Julio César Magaña Cáceres</p>
+  </footer>
+
+  <!-- Script del simulador y selector de idioma -->
+  <script>
+    let currentLang = 'es';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+      document.title = lang === 'es'
+        ? 'Sesión 06: Ecuaciones de Valor y Equivalencia Financiera | Matemáticas Financieras'
+        : 'Session 06: Equations of Value and Financial Equivalence | Financial Mathematics';
+
+      calcularEcuacionValor();
+    }
+
+    function formatCurrency(num) {
+      const locale = currentLang === 'es' ? 'es-MX' : 'en-US';
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: 'USD'
+      }).format(num);
+    }
+
+    function calcularEcuacionValor() {
+      const d1 = parseFloat(document.getElementById('ev-d1').value) || 0;
+      const t1 = parseFloat(document.getElementById('ev-t1').value) || 0;
+      const d2 = parseFloat(document.getElementById('ev-d2').value) || 0;
+      const t2 = parseFloat(document.getElementById('ev-t2').value) || 0;
+      const ratePct = parseFloat(document.getElementById('ev-rate').value) || 0;
+      const tFF = parseFloat(document.getElementById('ev-ff').value) || 0;
+
+      const i = ratePct / 100;
+      const valD1 = d1 * Math.pow(1 + i, tFF - t1);
+      const valD2 = d2 * Math.pow(1 + i, tFF - t2);
+      const totalX = valD1 + valD2;
+
+      document.getElementById('res-ev-d1').textContent = formatCurrency(valD1);
+      document.getElementById('res-ev-d2').textContent = formatCurrency(valD2);
+      document.getElementById('res-ev-total').textContent = formatCurrency(totalX);
+    }
+
+    // Inicializar al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+      setLanguage('es');
+    });
+  </script>
+</body>
+</html>
 
